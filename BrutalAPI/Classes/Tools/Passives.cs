@@ -16,6 +16,7 @@ namespace BrutalAPI
         static public BasePassiveAbilitySO Anointed1 => LoadedAssetsHandler.GetPassive("Anointed_1_PA");
         static public BasePassiveAbilitySO Anointed2 => LoadedAssetsHandler.GetPassive("Anointed_2_PA");
         static public BasePassiveAbilitySO Anchored => LoadedAssetsHandler.GetPassive("Anchored_PA");
+        static public BasePassiveAbilitySO Bile => LoadedAssetsHandler.GetPassive("Bile");
         static public BasePassiveAbilitySO BoneSpurs1 => LoadedAssetsHandler.GetPassive("BoneSpurs_1_PA");
         static public BasePassiveAbilitySO BoneSpurs2 => LoadedAssetsHandler.GetPassive("BoneSpurs_2_PA");
         static public BasePassiveAbilitySO BoneSpurs3 => LoadedAssetsHandler.GetPassive("BoneSpurs_3_PA");
@@ -57,7 +58,6 @@ namespace BrutalAPI
         static public BasePassiveAbilitySO Leaky1 => LoadedAssetsHandler.GetPassive("Leaky_1_PA");
         static public BasePassiveAbilitySO Leaky3 => LoadedAssetsHandler.GetPassive("Leaky_3_PA");
         static public BasePassiveAbilitySO Masochism1 => LoadedAssetsHandler.GetPassive("Masochism_1_PA");
-        static public BasePassiveAbilitySO Metabolism => LoadedAssetsHandler.GetPassive("Metabolism");
         static public BasePassiveAbilitySO MultiAttack2 => LoadedAssetsHandler.GetPassive("MultiAttack_2_PA");
         static public BasePassiveAbilitySO MultiAttack3 => LoadedAssetsHandler.GetPassive("MultiAttack_3_PA");
         static public BasePassiveAbilitySO MultiAttack4 => LoadedAssetsHandler.GetPassive("MultiAttack_4_PA");
