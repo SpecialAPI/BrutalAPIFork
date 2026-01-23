@@ -204,6 +204,7 @@ namespace BrutalAPI
             character.basicCharAbility = LoadedDBsHandler.AbilityDB.SlapAbility;
             //Initialize Lists here?
             character.unitTypes = new List<string>();
+            character.m_SelectionExtraCompanions = new List<string>();
             character.m_BossAchData = new List<CharFinalBossAchData>();
             character.passiveAbilities = new List<BasePassiveAbilitySO>();
             character.rankedData = new List<CharacterRankedData>();
