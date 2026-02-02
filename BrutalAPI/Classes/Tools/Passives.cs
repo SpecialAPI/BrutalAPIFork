@@ -98,6 +98,12 @@ namespace BrutalAPI
             { 1, Abomination1 }
         };
 
+        private static readonly Dictionary<int, BasePassiveAbilitySO> GeneratedAnointed = new()
+        {
+            { 1, Anointed1 },
+            { 2, Anointed2 }
+        };
+
         private static readonly Dictionary<int, BasePassiveAbilitySO> GeneratedBoneSpurs = new()
         {
             { 1, BoneSpurs1 },
@@ -231,6 +237,8 @@ namespace BrutalAPI
 
         private static readonly EffectorConditionSO Abomination_EffectorCondition = Abomination1.conditions[0];
 
+        private static readonly EffectSO Anointed_DivineProtection_Effect = (Anointed1 as PerformEffectPassiveAbility).effects[0].effect;
+
         private static readonly EffectSO BoneSpurs_Damage_Effect = (BoneSpurs1 as PerformEffectPassiveAbility).effects[0].effect;
         private static readonly UnitStoreData_BasicSO BoneSpurs_ExtraDamage_SV = BoneSpurs1.specialStoredData;
         private static readonly EffectorConditionSO BoneSpurs_EffectorCondition = BoneSpurs1.conditions[0];
@@ -314,6 +322,35 @@ namespace BrutalAPI
                 pa.unitStoredDataID = UnitStoredValueNames_GameIDs.AbominationPA.ToString();
                 pa._postIncreaseStored = true;
                 pa.postIncreaseValue = x;
+
+                return pa;
+            });
+        }
+
+        public static BasePassiveAbilitySO AnointedGenerator(int amount)
+        {
+            return GetOrCreatePassive(GeneratedAnointed, amount, x =>
+            {
+                var pa = ScriptableObject.CreateInstance<PerformEffectPassiveAbility>();
+
+                pa.name = $"Anointed_{x}_PA";
+                pa.m_PassiveID = PassiveType_GameIDs.Anointed.ToString();
+
+                pa._passiveName = $"Anointed ({x})";
+                pa._characterDescription = "On turn start, this party member blesses the opposing enemy.";
+                pa._enemyDescription = "On turn start, this enemy blesses the opposing party members.";
+
+                pa.passiveIcon = Anointed1.passiveIcon;
+
+                pa._triggerOn = new TriggerCalls[] { TriggerCalls.OnTurnStart };
+                pa.effects = new EffectInfo[]
+                {
+                    Effects.GenerateEffect(Anointed_DivineProtection_Effect, x, Targeting.Slot_Front)
+                };
+
+                pa.conditions = [];
+                pa.doesPassiveTriggerInformationPanel = true;
+                pa.specialStoredData = null;
 
                 return pa;
             });
