@@ -16,7 +16,7 @@ namespace BrutalAPI
         static public BasePassiveAbilitySO Anointed1 => LoadedAssetsHandler.GetPassive("Anointed_1_PA");
         static public BasePassiveAbilitySO Anointed2 => LoadedAssetsHandler.GetPassive("Anointed_2_PA");
         static public BasePassiveAbilitySO Anchored => LoadedAssetsHandler.GetPassive("Anchored_PA");
-        static public BasePassiveAbilitySO Bile => LoadedAssetsHandler.GetPassive("Bile");
+        static public BasePassiveAbilitySO Bile => LoadedAssetsHandler.GetPassive("Bile_PA");
         static public BasePassiveAbilitySO BoneSpurs1 => LoadedAssetsHandler.GetPassive("BoneSpurs_1_PA");
         static public BasePassiveAbilitySO BoneSpurs2 => LoadedAssetsHandler.GetPassive("BoneSpurs_2_PA");
         static public BasePassiveAbilitySO BoneSpurs3 => LoadedAssetsHandler.GetPassive("BoneSpurs_3_PA");
