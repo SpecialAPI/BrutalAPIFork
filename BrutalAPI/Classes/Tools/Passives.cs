@@ -994,6 +994,11 @@ namespace BrutalAPI
 
         public static BasePassiveAbilitySO DecayGenerator(EnemySO decayEnemy, int chance = 100)
         {
+            return DecayGenerator(decayEnemy, chance, false);
+        }
+
+        public static BasePassiveAbilitySO DecayGenerator(EnemySO decayEnemy, int chance, bool ignoreWitheringDeath)
+        {
             if(decayEnemy == null)
             {
                 Debug.LogError("Null decay enemy");
@@ -1008,7 +1013,11 @@ namespace BrutalAPI
             if(trimmedEnemyId.EndsWith("_EN"))
                 trimmedEnemyId = trimmedEnemyId.Substring(0, trimmedEnemyId.Length - "_EN".Length);
 
-            pa.name = $"Decay_{trimmedEnemyId}_{chance}_PA";
+            var id = $"Decay_{trimmedEnemyId}_{chance}";
+            if (ignoreWitheringDeath)
+                id += "_IgnoreWithering";
+            id += "_PA";
+            pa.name = id;
             pa.m_PassiveID = PassiveType_GameIDs.Decay.ToString();
 
             pa._passiveName = "Decay";
@@ -1029,17 +1038,23 @@ namespace BrutalAPI
                 Effects.GenerateEffect(spawnEffect, 0, Targeting.Slot_SelfSlot)
             };
 
+            var conds = new List<EffectorConditionSO>();
             if(chance < 100)
             {
                 var condition = ScriptableObject.CreateInstance<PercentageEffectorCondition>();
                 condition.triggerPercentage = chance;
 
-                pa.conditions = new EffectorConditionSO[] { condition };
+                conds.Add(condition);
             }
-            else
+            if (ignoreWitheringDeath)
             {
-                pa.conditions = [];
+                var condition = ScriptableObject.CreateInstance<DeathReferenceDetectionEffectorCondition>();
+                condition._useWithering = true;
+                condition._witheringDeath = false;
+
+                conds.Add(condition);
             }
+            pa.conditions = [.. conds];
 
             pa.doesPassiveTriggerInformationPanel = true;
             pa.specialStoredData = null;
