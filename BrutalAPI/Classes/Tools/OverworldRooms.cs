@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -9,6 +10,27 @@ namespace BrutalAPI
 {
     public class OverworldRooms
     {
+        public static void Add_Bar_SeatOption(string roomID, BarSeatData seatData, int seatID = 1)
+        {
+            BaseRoomHandler room = LoadedAssetsHandler.GetRoomPrefab(CardType.EventBar, roomID);
+            if (room == null)
+            {
+                Debug.LogError($"Room {roomID} does not exists or has not been added");
+                return;
+            }
+            BarRoomHandler barRoom = room as BarRoomHandler;
+            if (barRoom == null)
+            {
+                Debug.LogError($"Room {roomID} is not a bar");
+                return;
+            }
+            if(barRoom.m_BarSeats.Count <= seatID)
+            {
+                Debug.LogError($"Room {roomID} does not have that many seats");
+                return;
+            }
+            barRoom.m_BarSeats[seatID].m_NPCOptions.Add(seatData);
+        }
         public static void Prepare_NPC_RoomPrefab(string prefabBundlePath, string roomID, AssetBundle fileBundle)
         {
             GameObject asset = fileBundle.LoadAsset<GameObject>(prefabBundlePath);
