@@ -167,10 +167,13 @@ namespace BrutalAPI
             handler._zonePortalSelectable = GetRoomItemComponent(handler, data.m_ZonePortalSelectable) as BasicRoomItem;
             handler._extraSelectable = GetRoomItemComponent(handler, data.m_ExtraSelectable);
 
+            Material portalMaterial = LoadedDBsHandler.MiscDB.GetMaterial(MaterialIDs.Portal.ToString());
+            data.m_BossPortalRenderer.material = portalMaterial;
+            data.m_ZonePortalRenderer.material = portalMaterial;
 
             bool added = LoadedAssetsHandler.TryAddExternalOWRoom(roomID, handler);
             if (!added)
-                Debug.LogError($"RoomID {roomID} already in use!");
+                Debug.LogError($"RoomID {roomID} already in use!");            
         }
 
         static BaseRoomItem GetRoomItemComponent(BaseRoomHandler handler, BaseRoomItemModData data)
